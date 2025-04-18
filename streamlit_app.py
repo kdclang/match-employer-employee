@@ -56,14 +56,10 @@ selected_options = st.multiselect(
     default=None  # No options selected by default
 )
 
-# Create input form for employer selection
-# st.header("Available Employers")
 
 employers = get_data()
 model = load_model()
 
-# employer_names = employers['name'].tolist()
-# selected_employers = st.multiselect("Select employers to evaluate", employer_names)
 
 if st.button("Find Best Matches"):
     results = []
@@ -101,10 +97,10 @@ if st.button("Find Best Matches"):
     
     # Sort and display top matches
     results_df = pd.DataFrame(results).sort_values('match_score', ascending=False).head(25)
-    st.write("got results")
+    # st.write("got results")
     if not results_df.empty:
         # Get the highest score
-        st.write("got results")       
+        # st.write("got results")       
         top_score = results_df['match_score'].iloc[0]
         
         # Get all matches with the highest score
@@ -119,7 +115,7 @@ if st.button("Find Best Matches"):
                 st.write(f"{i+1}. {row['employer_name']} - Match Score: {row['match_score']:.1f}%")                 
         elif 6 <= num_top_matches <= 20:
             # Show just the number and score, not individual employers
-            st.subheader(f"Top {num_top_matches} Employer Matches (Score: {top_score:.1f}%")
+            st.subheader(f"Top {num_top_matches} Employer Matches (Score: {top_score:.1f}%)")
             for i, (_, row) in enumerate(top_matches.iterrows()):
                 st.write(f"{i+1}. {row['employer_name']}")
         else:  # More than 20 matches with the same score
